@@ -1,0 +1,12 @@
+body{
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.thumb-image {
+    width: 50px;
+}
+
+td form{
+    display: inline-block;
+}
