@@ -2,10 +2,10 @@
 
 $server=""; // usually locahost
 $dbname="hcode_crud";
-$username="root"; // usually root on the local machine
+$username=""; // usually root on the local machine
 $port=3306;
 $charset="utf8mb4";
-$password=""; // password for root
+$password=""; // root or username corresponding password
 
 try{
 	$connection = new PDO("mysql:host=$server; dbname=$dbname; port=$port; charset=$charset", $username, $password); 

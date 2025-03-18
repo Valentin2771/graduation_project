@@ -1,17 +1,48 @@
 <?php
 
+require_once("helpers/config.php");
+
+$title = $_POST['title'] ?? "";
+$imageOld = $_POST['image'] ?? "";
+$image = $_FILES['image'] ?? null;
+$description = $_POST['description'] ?? "";
+$price = $_POST['price'] ?? "";
+$id = $_POST['id'] ?? null;
+
+// scenario: the page form is submitted via POST method
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+
+    if(!empty($_GET['id'])){
+
+        $id = $_GET['id'];
+        $query = "SELECT * from products WHERE id = :id";
+        $stmt = $connection->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+        if(!empty($record)){
+            $title = $record['title'];
+            $imageOld = $record['image'];
+            $description = $record['description'];
+            $price = $record['price'];
+            $id = $record['id'];
+            $stmt = null;
+        } else{
+            header('location: index.php');
+            exit;
+        }
+
+    } else{
+        header('location: index.php');
+        exit;
+    }
+}
+
+// scenario: the page is targeted externally through a get GET request and an id is sent via query string
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     require_once("helpers/stringGen.php");
-    require_once("helpers/config.php");
-
-    $title = $_POST['title'] ?? "";
-    $imageOld = $_POST['image'] ?? "";
-    $image = $_FILES['image'] ?? null;
-    $description = $_POST['description'] ?? "";
-    $price = $_POST['price'] ?? "";
-    $id = $_POST['id'] ?? null;
-
 
     $flags = [];
 
@@ -73,14 +104,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':modified_at', $modified_at);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        header("Location: index.php");
-        die;
     }
-
-} else {
     header("Location: index.php");
-    die;
-}
+    exit;
+} 
 
 include_once "html/header.html";
 
@@ -118,5 +145,5 @@ include_once "html/header.html";
 </main>
 
 <?php
-include_once "html/footer.html";
+    include_once "html/footer.html";
 ?>

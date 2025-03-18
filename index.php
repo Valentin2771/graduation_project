@@ -41,9 +41,8 @@ $connection = null;
                     <td> <?php echo $rec['create_date']; ?> </td>
                     <td> <?php echo $rec['modified_at'] ?? $rec['create_date']; ?> </td>
                     <td>
-                        <form form method="POST" action="edit.php">
+                        <form form method="GET" action="edit.php">
                             <input type="hidden" name="id" value="<?php echo $rec['id']; ?>">
-                            <input type="hidden" name="image" value="<?php echo $rec['image']; ?>">
                             <button type="submit" class="btn btn-sm btn-outline-primary">Edit</button>
                         </form>
                         
