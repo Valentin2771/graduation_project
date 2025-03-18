@@ -115,6 +115,9 @@ include_once "html/header.html";
 
 <main>
     <h2>Edit an existing content</h2>
+    <div class="img-container">
+       <?php if(!empty($imageOld)) echo "<img src='$imageOld' class='img-update' alt='Actual content'>"; ?>
+    </div>
 
     <form method="POST" action="" enctype="multipart/form-data">
         <div class="form-group">

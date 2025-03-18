@@ -10,3 +10,11 @@ body{
 td form{
     display: inline-block;
 }
+
+.img-update{
+    width:30%;
+}
+
+.img-container{
+    margin: 1rem auto;
+}
